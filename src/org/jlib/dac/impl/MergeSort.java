@@ -2,6 +2,8 @@ package org.jlib.dac.impl;
 
 
 import java.util.Arrays;
+import java.util.Random;
+
 import org.jlib.dac.DacBase;
 
 public class MergeSort{
@@ -11,10 +13,17 @@ public class MergeSort{
 
     public static void main(String[] args) throws Exception {
         MergeSort m = new MergeSort();
-        int[] input = {6,2,9,692,12,435,23,87};//
+        Random r = new Random();
+        int[] input = r.ints(10,0,1000).toArray();
+        //int[] input = {6,2,9,692,12,435,23,87};//
         m.val = input;
+        System.out.println(m.val.length);
+        Arrays.stream(m.val).mapToObj(a -> Integer.toString(a) + ",").forEach(System.out::print);
         m.sort();
-        Arrays.stream(m.val).forEach(System.out::println);;
+        System.out.print("\n\n");
+        
+        System.out.println(m.val.length);
+        Arrays.stream(m.val).mapToObj(a -> Integer.toString(a) + ",").forEach(System.out::print);
 
     }
 
