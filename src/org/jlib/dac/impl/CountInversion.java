@@ -6,23 +6,27 @@ import java.util.Random;
 
 import org.jlib.dac.DacBase;
 
-public class MergeSort{
+public class CountInversion{
     
     int[] val = null;
-
+    int invCount = 0;
 
     public static void main(String[] args) throws Exception {
-        MergeSort m = new MergeSort();
+        CountInversion m = new CountInversion();
         Random r = new Random();
-        m.val  = r.ints(6,0,20).toArray();
-        //int[] input = {6,2,9,692,12,435,23,87};//
+        
+        m.val = new int[]{1,9,6,4,5}; //5
+        //m.val = new int[]{8,4,2,1}; //6
+        //m.val = new int[]{2,4,1,3,5}; //3
+        //m.val  = r.ints(6,0,20).toArray();
+        
         Arrays.stream(m.val).mapToObj(a -> Integer.toString(a) + ",").forEach(System.out::print);
-        System.in.read();
         
         m.sort();
         
         System.out.print("\n\n");
         Arrays.stream(m.val).mapToObj(a -> Integer.toString(a) + ",").forEach(System.out::print);
+        System.out.println(m.invCount);
 
     }
 
@@ -69,6 +73,7 @@ public class MergeSort{
         }else{
             int left = lmsb;
             int right = llsb;
+            int diff = right -left;
             while (true) {
                 if(val[left]<val[right]){
                     swapArray[swapctr] = val[left];
@@ -78,6 +83,7 @@ public class MergeSort{
                     swapArray[swapctr] = val[right];
                     swapctr++;
                     right++;
+                    invCount+=(rmsb-left+1);
                 }
                 
                 if(left >rmsb){
@@ -86,6 +92,7 @@ public class MergeSort{
                         swapctr++;
                     }
                     break;
+                    
                 }
 
                 if(right > rlsb){
@@ -112,6 +119,7 @@ public class MergeSort{
             val[left] = val[right];
             val[right] = temp;
             wasSwapped = true;
+            invCount++;
         }
         return wasSwapped;
     }
